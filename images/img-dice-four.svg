@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="147" height="147" viewBox="0 0 147 147">
+  <g id="img-dice-four" transform="translate(-1496 -1382)">
+    <g id="Rectangle_10" data-name="Rectangle 10" transform="translate(1496 1382)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="147" height="147" stroke="none"/>
+      <rect x="0.5" y="0.5" width="146" height="146" fill="none"/>
+    </g>
+    <g id="Ellipse_12" data-name="Ellipse 12" transform="translate(1524 1410)" fill="#eb4d4c" stroke="#eb4d4c" stroke-width="1">
+      <circle cx="9.5" cy="9.5" r="9.5" stroke="none"/>
+      <circle cx="9.5" cy="9.5" r="9" fill="none"/>
+    </g>
+    <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(1597 1410)" fill="#eb4d4c" stroke="#eb4d4c" stroke-width="1">
+      <circle cx="9.5" cy="9.5" r="9.5" stroke="none"/>
+      <circle cx="9.5" cy="9.5" r="9" fill="none"/>
+    </g>
+    <g id="Ellipse_14" data-name="Ellipse 14" transform="translate(1597 1483)" fill="#eb4d4c" stroke="#eb4d4c" stroke-width="1">
+      <circle cx="9.5" cy="9.5" r="9.5" stroke="none"/>
+      <circle cx="9.5" cy="9.5" r="9" fill="none"/>
+    </g>
+    <g id="Ellipse_15" data-name="Ellipse 15" transform="translate(1524 1483)" fill="#eb4d4c" stroke="#eb4d4c" stroke-width="1">
+      <circle cx="9.5" cy="9.5" r="9.5" stroke="none"/>
+      <circle cx="9.5" cy="9.5" r="9" fill="none"/>
+    </g>
+  </g>
+</svg>
