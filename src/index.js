@@ -1,4 +1,5 @@
 /*------------------------------------------ variables -------------------------------------------*/
+let computer = true 
 
 let playerTurn = 0
 let one = 0
@@ -23,6 +24,45 @@ let holdButton = document.querySelector('#hold-btn')
 let roundScores = [document.querySelector('#rs-one'), document.querySelector('#rs-two')]
 let globalScores = [document.querySelector('#gs-one'), document.querySelector('#gs-two')]
 let playerTurns = [document.querySelector('#player-one-turn'), document.querySelector('#player-two-turn')]
+
+let firstToPlay={
+  ckbox:document.querySelector(id="#first-to-play-checkbox"),
+  label:document.querySelector(id="#first-to-play-text")
+}
+
+let opponent={
+  ckbox:document.querySelector(id="#opponent-checkbox"),
+  label:document.querySelector(id="#opponent-text")
+}
+
+let startButton = document.querySelector("#start-btn")
+
+let homeScreen = document.querySelector("#homeScreen")
+
+
+/*--------------------------------------- player choices -----------------------------------------*/
+
+function opponentHandler(){
+  opponent.label.textContent=(opponent.ckbox.checked == true?'computer':'human player');
+  computer==(opponent.ckbox.checked == true?true:false);
+}
+
+function firstToPlayHandler(){
+  firstToPlay.label.textContent=(firstToPlay.ckbox.checked == true?'I will . . .':'Opponent will . . .');
+  playerTurn = (firstToPlay.ckbox.checked == true?0:1);
+  if(computer==true && playerTurn==1) clickOnButtons(disable)
+}
+
+function startBtnHandler(){
+  homeScreen.style.display='none'
+  play()
+}
+
+opponent.ckbox.addEventListener('change',opponentHandler)
+
+firstToPlay.ckbox.addEventListener('change',firstToPlayHandler)
+
+startButton.addEventListener('click', startBtnHandler)
 
 /*---------------------------------- 'click events' functions ------------------------------------*/
 
@@ -76,6 +116,7 @@ function newGame(){
   globalScores[1].textContent = String(0)
   roundScores[0].textContent = String(0)
   roundScores[1].textContent = String(0)
+  play()
 }
 
 /*------------------------- 'prevent high frequency clicks' function -----------------------------*/
@@ -106,7 +147,7 @@ function turnOver(){
   if (playerTurn==1) {
     upToPlayer(two)
     clickOnButtons(disable)
-    play()
+    if(computer==true) play()
   }
   else{
     upToPlayer(one)
@@ -125,13 +166,14 @@ function play(){
   }
 }
 
-/*---------------------------------------- linked events -----------------------------------------*/
+/*------------------------------------- linked click events --------------------------------------*/
 
 rollButton.addEventListener('click',debounce(rollADice,500))
 
 holdButton.addEventListener('click',keepScore)
 
 newGameButton.addEventListener('click',newGame)
+
 
 
 
