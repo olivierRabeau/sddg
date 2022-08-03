@@ -1,1 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="147" height="147" viewBox="0 0 147 147">
+  <g id="img-dice-one" transform="translate(-1496 -1937)">
+    <g id="Rectangle_13" data-name="Rectangle 13" transform="translate(1496 1937)" fill="#fff" stroke="#707070" stroke-width="1">
+      <rect width="147" height="147" stroke="none"/>
+      <rect x="0.5" y="0.5" width="146" height="146" fill="none"/>
+    </g>
+    <g id="Ellipse_26" data-name="Ellipse 26" transform="translate(1560 2001)" fill="#eb4d4c" stroke="#eb4d4c" stroke-width="1">
+      <circle cx="9.5" cy="9.5" r="9.5" stroke="none"/>
+      <circle cx="9.5" cy="9.5" r="9" fill="none"/>
+    </g>
+  </g>
+</svg>
 
