@@ -92,7 +92,7 @@ function displayWinner(){
 
 /* throw the dice */
 function rollADice(){    
-  let beat = new Audio('../audio/aud-dice-rolling.mp3');
+  let beat = new Audio('./audio/aud-dice-rolling.mp3');
   beat.volume = 1
   beat.play()
   let waitSoundEnd = setTimeout(() => {
