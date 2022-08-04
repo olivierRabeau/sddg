@@ -11,7 +11,36 @@
 <body class="container-fluid p-3">
 
     <div id="homeScreen" class="w-100 h-100">
-        <h1>THE DICE <span class="text-nowrap">ARE LOADED</span></h1>
+        <button class="rules-btn" data-bs-toggle="modal" data-bs-target="#rules" style="text-align:start; padding:0; margin:0;">
+            <h1 style="margin:0; padding:0;">THE DICE <span class="text-nowrap">ARE LOADED</span></h1>
+            <p style="color:gray;position:relative;top:calc(-0.5rem - 0.5vw);width:10rem; margin:0; padding:0;">Rules of the game</p>
+        </button>
+
+        <div class="modal" id="rules" tabindex="-1" style="position:fixed; z-index:20;">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                  <h5 class="modal-title">Rules of the game</h5>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    The game includes 2 players on a single screen. 
+                    Each player has a temporary score (ROUND) and an overall score (GLOBAL). 
+                    At each turn, the player has his ROUND initialized to 0 and can roll a die 
+                    as many times as he wants. The The result of a throw is added to the ROUND. 
+                    During his turn, the player can decide at any time to: - Click on the "Hold" 
+                    option, which allows him to send the points from the ROUND to the GLOBAL. 
+                    It will then be the other player's turn. - Roll the dice. 
+                    If he gets a 1, his ROUND score is lost and that's the end of his turn. 
+                    The first player who reaches 100 points on global wins the game.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         <form style="display:flex; flex-direction:column;">
             <div>
                 <p class="player-choices-questions" >Play against . . . </p>
@@ -28,10 +57,12 @@
                 </div>  
             </div>                                    
         </form>
+
         <button id="start-btn">
             <p id="start-btn-title">Start the game</p>
             <img src="../images/img-cup-dice.png" id="start-btn-image">
-        </button>
+        </button>  
+
     </div>    
 
     <div class="display-area"> 
@@ -62,8 +93,11 @@
                 <button id="hold-btn"><img src="../images/ico-box-arrow-down.svg" height="32px"><span class="ms-3 text-black fs-4">HOLD</span></button>
             </div>      
             <img src="" id="dice">
-        </div>        
+        </div>      
     </div>   
+
+    <div id="win-window"></div>
+    <div id="win-text">OPPONENT WINS</div>
 
     <noscript>Javascript est indispensable au fonctionnement de cette application</noscript>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

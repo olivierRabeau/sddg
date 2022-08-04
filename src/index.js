@@ -5,6 +5,8 @@ let playerTurn = 0
 let one = 0
 let two = 1
 
+let firstMove = 0
+
 let enable = false
 let disable = true
 
@@ -24,6 +26,8 @@ let holdButton = document.querySelector('#hold-btn')
 let roundScores = [document.querySelector('#rs-one'), document.querySelector('#rs-two')]
 let globalScores = [document.querySelector('#gs-one'), document.querySelector('#gs-two')]
 let playerTurns = [document.querySelector('#player-one-turn'), document.querySelector('#player-two-turn')]
+let winWindow = document.querySelector('#win-window')
+let winText = document.querySelector('#win-text')
 
 let firstToPlay={
   ckbox:document.querySelector(id="#first-to-play-checkbox"),
@@ -49,12 +53,14 @@ function opponentHandler(){
 
 function firstToPlayHandler(){
   firstToPlay.label.textContent=(firstToPlay.ckbox.checked == true?'I will . . .':'Opponent will . . .');
+  firstMove = (firstToPlay.ckbox.checked == true?0:1);
   playerTurn = (firstToPlay.ckbox.checked == true?0:1);
   if(computer==true && playerTurn==1) clickOnButtons(disable)
 }
 
 function startBtnHandler(){
   homeScreen.style.display='none'
+  upToPlayer(playerTurn)
   play()
 }
 
@@ -70,6 +76,18 @@ startButton.addEventListener('click', startBtnHandler)
 function clickOnButtons(state){
   rollButton.disabled = state
   holdButton.disabled = state
+}
+
+/* shows who has just won the game */
+function displayWinner(){
+  winText.textContent=(playerTurn==0?'YOU WIN':'OPPONENT WIN')
+  winWindow.style.display="flex"
+  winText.style.display="flex" 
+  let timer = setTimeout(()=>{
+    winWindow.style.display="none"    
+    winText.style.display="none"  
+    return ()=>clearTimeout(timer);
+  },3000)
 }
 
 /* throw the dice */
@@ -116,7 +134,9 @@ function newGame(){
   globalScores[1].textContent = String(0)
   roundScores[0].textContent = String(0)
   roundScores[1].textContent = String(0)
-  play()
+  playerTurn = firstMove
+  firstMove = (firstMove == 0 ? 1 : 0)
+  turnOver()
 }
 
 /*------------------------- 'prevent high frequency clicks' function -----------------------------*/
@@ -173,7 +193,3 @@ rollButton.addEventListener('click',debounce(rollADice,500))
 holdButton.addEventListener('click',keepScore)
 
 newGameButton.addEventListener('click',newGame)
-
-
-
-

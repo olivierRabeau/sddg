@@ -1,10 +1,12 @@
-/*------------------------------------------- Thème ----------------------------------------------*/
+/*------------------------------------------- Theme ----------------------------------------------*/
 
 :root{
     --main-color:#EB4D4C;
     --light-brown:#AF9D89;
     --dark-brown:#824F31;
     --light-gray:#EEEBEB; /* #F7F7F7 */
+    /* masque le clignotement du curseur de saisie */
+    caret-color: transparent;
 }
 
 @font-face{
@@ -27,12 +29,17 @@
     src:url("./Lato-Bold.ttf") format("truetype");
 }
 
+@font-face{
+    font-family:"MouseM";
+    src:url("./MouseMemoirs-Regular.ttf") format("truetype");
+}
+
 /*---------------------------------------- Home screen -------------------------------------------*/
 #homeScreen{
     position:absolute; 
     top:0;
     left:0; 
-    z-index:2; 
+    z-index:1; 
     overflow:hidden;
     padding:1rem;
     background:black; 
@@ -42,6 +49,7 @@
     min-width:320px;
     display:flex; 
     flex-direction:column;
+    align-items: flex-start;
 }
 
 h1{
@@ -87,7 +95,16 @@ h1{
     height:calc(10rem + 10vw);
 }
 
-/*--------------------------- affichage type mobile en mode portrait -----------------------------*/
+.modal-backdrop{
+    display:none !important;
+}
+
+.modal-title{
+    color:var(--main-color);
+    font-size:1.5rem;
+}
+
+/*-------------------------------- portrait mobile type display ----------------------------------*/
 
 /* wrappers */
 body{
@@ -221,7 +238,6 @@ button{
     z-index:1;
 }
 
-/* groupe de boutons affiché uniquement en orientation paysage */
 .button-group{
     position:absolute;
     bottom:1rem;
@@ -237,14 +253,27 @@ button{
     background:white;
 }
 
-.button-group button:nth-child(2){
+.button-group button:first-child{
     background:var(--light-gray);
 }
+
 .button-group span{
     display:none;
 }
 
-/*--------------------------- affichage type mobile en mode paysage ------------------------------*/
+#new-game-btn{
+    order:2;
+}
+
+#hold-btn{
+    order:1;
+}
+
+#roll-btn{
+    order:3;
+}
+
+/*------------------------------- landscape mobile type display ----------------------------------*/
 
 @media only screen and (orientation:landscape) and (min-width:576px){ 
     body{
@@ -300,7 +329,7 @@ button{
 
 }
 
-/*----------------------------------- affichage type laptop --------------------------------------*/
+/*------------------------------------ laptop type display ---------------------------------------*/
 
 @media only screen and (min-height:576px) and (min-width:576px) and (orientation:landscape){
     .display-area{
@@ -334,25 +363,70 @@ button{
         background:none;
     }   
 
-    .button-group button:nth-child(2){
+    .button-group button:first-child{
         background:none;
+        margin-bottom:auto;
     }
 
     .button-group span{
         display:inline;
     }
 
-    .button-group button:first-child{
-        margin-bottom:auto;
-    }
-
     #dice{
         top:calc(32% - 4rem);;
         left:calc(50% - 4rem);
-    }    
+    } 
     
-    /* pour forcer le choix d'un type affichage dans la zone où plusieurs types sont possibles */
+    #new-game-btn{
+        order:1;
+    }
+    
+    #hold-btn{
+        order:3;
+    }
+    
+    #roll-btn{
+        order:2;
+    }
+   
+    /* to force laptop display when mobile display is also available */
     body, .absolute-area{
         min-width:768px;
     }
 }
+
+/*------------------------------------- end game message -----------------------------------------*/
+
+#win-window{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:black;
+    opacity:0.5;
+    z-index:2;
+}
+
+#win-text {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    z-index:2;
+    font-family:'MouseM', sans-serif;
+    font-size:5rem;
+    color:orange;
+}
+
+#win-window, #win-text{
+    display:none;
+}
+
+
+
