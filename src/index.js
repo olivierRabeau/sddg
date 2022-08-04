@@ -10,14 +10,14 @@ let firstMove = 0
 let enable = false
 let disable = true
 
-let faces = [
-"./images/img-dice-one.svg",
-"./images/img-dice-two.svg",
-"./images/img-dice-three.svg",
-"./images/img-dice-four.svg",
-"./images/img-dice-five.svg",
-"./images/img-dice-six.svg"
-]
+let localState = {
+  'globalOne':'',
+  'globalTwo':'',
+  'roundOne':'',
+  'roundTwo':'',
+  'firstMove':'',
+  'playerTurn':''
+}
 
 let dice = document.querySelector('#dice')
 let rollButton = document.querySelector('#roll-btn')
@@ -28,6 +28,7 @@ let globalScores = [document.querySelector('#gs-one'), document.querySelector('#
 let playerTurns = [document.querySelector('#player-one-turn'), document.querySelector('#player-two-turn')]
 let winWindow = document.querySelector('#win-window')
 let winText = document.querySelector('#win-text')
+let sound = document.querySelector('audio')
 
 let firstToPlay={
   ckbox:document.querySelector(id="#first-to-play-checkbox"),
@@ -60,6 +61,7 @@ function firstToPlayHandler(){
 
 function startBtnHandler(){
   homeScreen.style.display='none'
+  getLocalState()
   upToPlayer(playerTurn)
   play()
 }
@@ -91,15 +93,15 @@ function displayWinner(){
 }
 
 /* throw the dice */
-function rollADice(){    
-  let beat = new Audio('./audio/aud-dice-rolling.mp3');
-  beat.volume = 1
-  beat.play()
+function rollADice(){
+  sound.volume = 1
+  sound.play()
   let waitSoundEnd = setTimeout(() => {
     let face = Math.floor(Math.random()*6)
-    dice.setAttribute('src',faces[face])
+    displayDice(face)
     if (face != 0) {
       roundScores[playerTurn].textContent = String(Number(roundScores[playerTurn].textContent) + (face+1))
+      setLocalState()
     } 
     else {
       roundScores[playerTurn].textContent = String(face)
@@ -123,13 +125,13 @@ function keepScore(){
     }
     roundScores[playerTurn].textContent = String(0)
     turnOver()
-  } 
+  }
 }
 
 /* start a new game */
 function newGame(){
   clickOnButtons(enable)
-  dice.setAttribute('src','')
+  displayDice(6) /* all faces are hidden */
   globalScores[0].textContent = String(0)
   globalScores[1].textContent = String(0)
   roundScores[0].textContent = String(0)
@@ -172,6 +174,7 @@ function turnOver(){
   else{
     upToPlayer(one)
   }
+  setLocalState()
 }
 
 /*---------------------------------- 'computer plays' function -----------------------------------*/
@@ -181,6 +184,7 @@ function play(){
     rollADice()
     let timer = setTimeout(()=>{
       (Math.floor(Math.random()*5)>0)? play() : keepScore()
+      setLocalState()
       return () => clearTimeout(timer)
     },3000)
   }
@@ -193,3 +197,37 @@ rollButton.addEventListener('click',debounce(rollADice,500))
 holdButton.addEventListener('click',keepScore)
 
 newGameButton.addEventListener('click',newGame)
+
+function setLocalState(){
+  localState.globalOne = globalScores[0].textContent
+  localState.globalTwo = globalScores[1].textContent
+  localState.roundOne = roundScores[0].textContent
+  localState.roundTwo = roundScores[1].textContent
+  localState.firstMove = firstMove
+  localState.playerTurn = playerTurn
+  localStorage.setItem('state', JSON.stringify(localState))
+}
+
+function getLocalState(){
+  if (localStorage.getItem('state') != null) {
+    localState = {...JSON.parse(localStorage.getItem('state'))}
+    globalScores[0].textContent = localState.globalOne
+    globalScores[1].textContent = localState.globalTwo
+    roundScores[0].textContent = localState.roundOne
+    roundScores[1].textContent = localState.roundTwo
+    firstMove = localState.firstMove
+    playerTurn = localState.playerTurn
+  }
+  else {
+    setLocalState()
+  }
+}
+
+function displayDice(face=0){
+  let diceFaces=document.querySelectorAll(".dice")
+  let number=0
+  diceFaces.forEach(function show(){ 
+    diceFaces[number].style.display = (number==face? "block":"none")
+    number++
+  })
+}

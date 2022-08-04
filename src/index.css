@@ -230,7 +230,8 @@ button{
 }
 
 
-#dice{
+.dice{
+    display:none;
     position:absolute;
     top:calc(50% - 5.4rem);
     left:calc(50% - 4rem);
@@ -308,7 +309,7 @@ button{
         order:2;
     }
 
-    #dice{
+   .dice{
         top:calc(50% - 5.5rem);;
         left:calc(50% - 4rem);
     }
@@ -372,7 +373,7 @@ button{
         display:inline;
     }
 
-    #dice{
+    .dice{
         top:calc(32% - 4rem);;
         left:calc(50% - 4rem);
     } 

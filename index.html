@@ -9,8 +9,12 @@
 </head>
 
 <body class="container-fluid p-3">
+    <audio>
+        <source src="./audio/aud-dice-rolling.mp3" type="audio/mp3">
+    </audio> 
 
     <div id="homeScreen" class="w-100 h-100">
+
         <button class="rules-btn" data-bs-toggle="modal" data-bs-target="#rules" style="text-align:start; padding:0; margin:0;">
             <h1 style="margin:0; padding:0;">THE DICE <span class="text-nowrap">ARE LOADED</span></h1>
             <p style="color:gray;position:relative;top:calc(-0.5rem - 0.5vw);width:10rem; margin:0; padding:0;">Rules of the game</p>
@@ -92,7 +96,12 @@
                 <button id="roll-btn"><img src="./images/ico-arrow-repeat.svg" height="42px"><span class="ms-3 text-black fs-4">ROLL DICE</span></button>
                 <button id="hold-btn"><img src="./images/ico-box-arrow-down.svg" height="32px"><span class="ms-3 text-black fs-4">HOLD</span></button>
             </div>      
-            <img src="" id="dice">
+            <img src="./images/img-dice-one.svg" class="dice">
+            <img src="./images/img-dice-two.svg" class="dice">
+            <img src="./images/img-dice-three.svg" class="dice">
+            <img src="./images/img-dice-four.svg" class="dice">
+            <img src="./images/img-dice-five.svg" class="dice">
+            <img src="./images/img-dice-six.svg" class="dice">
         </div>      
     </div>   
 
