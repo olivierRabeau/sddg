@@ -11,12 +11,12 @@ let enable = false
 let disable = true
 
 let faces = [
-'../images/img-dice-one.svg',
-'../images/img-dice-two.svg',
-'../images/img-dice-three.svg',
-'../images/img-dice-four.svg',
-'../images/img-dice-five.svg',
-'../images/img-dice-six.svg'
+"./images/img-dice-one.svg",
+"./images/img-dice-two.svg",
+"./images/img-dice-three.svg",
+"./images/img-dice-four.svg",
+"./images/img-dice-five.svg",
+"./images/img-dice-six.svg"
 ]
 
 let dice = document.querySelector('#dice')
