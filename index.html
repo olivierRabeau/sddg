@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Single-die duel game whose goal is to be the first to reach a cumulative of 100 points">
+    <meta name="author" content="Olivier Rabeau">
+    <meta name="robots" content="all">
+    <link rel="icon" type="image/svg+xml" href="./images/ico-favicon.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link href="./src/index.css" rel="stylesheet"/>
-    <title>Document</title>
+    <title>Single-die duel game</title>
 </head>
 
 <body class="container-fluid p-3">
@@ -15,12 +19,12 @@
 
     <div id="homeScreen" class="w-100 h-100">
 
-        <button class="rules-btn" data-bs-toggle="modal" data-bs-target="#rules" style="text-align:start; padding:0; margin:0;">
-            <h1 style="margin:0; padding:0;">THE DICE <span class="text-nowrap">ARE LOADED</span></h1>
-            <p style="color:gray;position:relative;top:calc(-0.5rem - 0.5vw);width:10rem; margin:0; padding:0;">Rules of the game</p>
+        <button class="rules-btn text-start p-0 m-0" data-bs-toggle="modal" data-bs-target="#rules">
+            <h1>SINGLE-DIE <span class="text-nowrap"> DUEL GAME </span></h1>
+            <p>Rules of the game</p>
         </button>
 
-        <div class="modal" id="rules" tabindex="-1" style="position:fixed; z-index:20;">
+        <div class="modal" id="rules" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content bg-dark text-light">
                 <div class="modal-header">
@@ -34,9 +38,9 @@
                     as many times as he wants. The The result of a throw is added to the ROUND. 
                     During his turn, the player can decide at any time to: - Click on the "Hold" 
                     option, which allows him to send the points from the ROUND to the GLOBAL. 
-                    It will then be the other player's turn. - Roll the dice. 
-                    If he gets a 1, his ROUND score is lost and that's the end of his turn. 
-                    The first player who reaches 100 points on global wins the game.</p>
+                    It will then be the other player's turn. 
+                    Roll the die : if a player gets a 1, his ROUND score is lost and that's the end of his turn. 
+                    The first player who reaches 100 points on GLOBAL wins the game.</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -45,7 +49,7 @@
             </div>
           </div>
           
-        <form style="display:flex; flex-direction:column;">
+        <form>
             <div>
                 <p class="player-choices-questions" >Play against . . . </p>
                 <div class="form-check form-switch">
@@ -106,9 +110,9 @@
     </div>   
 
     <div id="win-window"></div>
-    <div id="win-text">OPPONENT WINS</div>
+    <div id="win-text">YOU WIN</div>
 
-    <noscript>Javascript est indispensable au fonctionnement de cette application</noscript>
+    <noscript>Javascript is essential for the operation of this application</noscript>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="./src/index.js"></script>
 </body>

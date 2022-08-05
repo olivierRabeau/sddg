@@ -5,7 +5,7 @@
     --light-brown:#AF9D89;
     --dark-brown:#824F31;
     --light-gray:#EEEBEB; /* #F7F7F7 */
-    /* masque le clignotement du curseur de saisie */
+    /* prevent the blinking cursor to be visible */
     caret-color: transparent;
 }
 
@@ -15,18 +15,8 @@
 }
 
 @font-face{
-    font-family:"Lato-Light";
-    src:url("./Lato-Light.ttf") format("truetype");
-}
-
-@font-face{
     font-family:"Lato-Thin";
     src:url("./Lato-Thin.ttf") format("truetype");
-}
-
-@font-face{
-    font-family:"Lato-Bold";
-    src:url("./Lato-Bold.ttf") format("truetype");
 }
 
 @font-face{
@@ -35,6 +25,7 @@
 }
 
 /*---------------------------------------- Home screen -------------------------------------------*/
+
 #homeScreen{
     position:absolute; 
     top:0;
@@ -55,6 +46,8 @@
 h1{
   font-size:calc(2rem + 3vw);
   color:var(--main-color);
+  margin:0; 
+  padding:0;
 }
 
 .player-choices-questions{
@@ -104,9 +97,24 @@ h1{
     font-size:1.5rem;
 }
 
+.rules-btn p{
+    color:gray;
+    position:relative;
+    top:calc(-0.5rem - 0.5vw);
+    width:10rem; 
+    margin:0; 
+    padding:0;
+}
+
+form{
+    display:flex; 
+    flex-direction:column;
+}
+
 /*-------------------------------- portrait mobile type display ----------------------------------*/
 
 /* wrappers */
+
 body{
     background-image: linear-gradient(0, var(--dark-brown), var(--light-brown));
     background-repeat: no-repeat;
