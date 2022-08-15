@@ -12,14 +12,20 @@ let enable = false;
 let disable = true;
 
 let localState = {
-  'globalOne':'',
-  'globalTwo':'',
-  'roundOne':'',
-  'roundTwo':'',
-  'firstMove':'',
-  'playerTurn':''
+  globalOne:'',
+  globalTwo:'',
+  roundOne:'',
+  roundTwo:'',
+  firstMove:0,
+  playerTurn:0,
+  computer:true
 };
 
+let resume = true;
+
+let modalWrapper = document.querySelector('#modal-wrapper');
+let yesButton = document.querySelector('#yes-btn');
+let noButton = document.querySelector('#no-btn');
 let dice = document.querySelector('#dice');
 let rollButton = document.querySelector('#roll-btn');
 let newGameButton = document.querySelector('#new-game-btn');
@@ -50,7 +56,7 @@ let homeScreen = document.querySelector('#homeScreen');
 
 function opponentHandler(){
   opponent.label.textContent = (opponent.ckbox.checked == true ? 'computer' : 'human player');
-  computer == (opponent.ckbox.checked == true ? true : false);
+  computer = (opponent.ckbox.checked == true ? true : false);
 }
 
 function firstToPlayHandler(){
@@ -61,10 +67,13 @@ function firstToPlayHandler(){
 }
 
 function startBtnHandler(){
-  homeScreen.style.display = 'none';
-  getLocalState();
-  upToPlayer(playerTurn);
-  play();
+  homeScreen.className = homeScreen.className.replace("d-flex", "d-none")
+  if (localStorage.getItem('state') != null) displayModal();
+  else {
+    setLocalState();
+    upToPlayer(playerTurn);
+    upToComputer();
+  }
 }
 
 opponent.ckbox.addEventListener('change',opponentHandler);
@@ -82,11 +91,11 @@ function setLocalState(){
   localState.roundTwo = roundScores[1].textContent;
   localState.firstMove = firstMove;
   localState.playerTurn = playerTurn;
+  localState.computer = computer;
   localStorage.setItem('state', JSON.stringify(localState));
 }
 
 function getLocalState(){
-  if (localStorage.getItem('state') != null) {
     localState = {...JSON.parse(localStorage.getItem('state'))}
     globalScores[0].textContent = localState.globalOne;
     globalScores[1].textContent = localState.globalTwo;
@@ -94,10 +103,7 @@ function getLocalState(){
     roundScores[1].textContent = localState.roundTwo;
     firstMove = localState.firstMove;
     playerTurn = localState.playerTurn;
-  }
-  else {
-    setLocalState();
-  }
+    computer = localState.computer;
 }
 
 /*---------------------------------- 'display' functions ------------------------------------*/
@@ -111,13 +117,13 @@ function clickOnButtons(state){
 /* shows who has just won the game */
 function displayWinner(){
   winText.textContent = (playerTurn == 0 ? 'YOU WIN' : 'OPPONENT WIN');
-  winWindow.style.display = 'flex';
-  winText.style.display = 'flex'; 
+  winWindow.className = winWindow.className.replace("d-none", "d-flex");
+  winText.className = winText.className.replace("d-none", "d-flex");
   let timer = setTimeout(()=>{
-    winWindow.style.display = 'none';    
-    winText.style.display = 'none';  
+    winWindow.className = winWindow.className.replace("d-flex", "d-none");
+    winText.className = winText.className.replace("d-flex", "d-none");
     return ()=>clearTimeout(timer);
-  },3000);
+  },2000);
 }
 
 /* hides or shows faces */
@@ -125,9 +131,14 @@ function displayDice(face = 0){
   let diceFaces = document.querySelectorAll('.dice');
   let number = 0;
   diceFaces.forEach(function show(){ 
-    diceFaces[number].style.display = (number == face ? 'block' : 'none');
+    if (number != face) diceFaces[number].className = diceFaces[number].className.replace('d-block','d-none');
+    else diceFaces[number].className = diceFaces[number].className.replace('d-none','d-block');
     number++;
   })
+}
+
+function displayModal(){
+  modalWrapper.className = modalWrapper.className.replace('d-none','d-block');
 }
 
 /*---------------------------------- 'click events' functions ------------------------------------*/
@@ -145,7 +156,7 @@ function rollADice(){
     } 
     else {
       roundScores[playerTurn].textContent = String(face);
-      if (computer == true) clickOnButtons(disable);
+      if (computer == true && playerTurn == 1) clickOnButtons(disable);
       turnOver();
     }
   }, 2500);  
@@ -158,6 +169,7 @@ function keepScore(){
     let total = Number(globalScores[playerTurn].textContent) + Number(roundScores[playerTurn].textContent);    
     if (total >= 100) {
         globalScores[playerTurn].textContent = String(100);
+        clickOnButtons(disable);
         displayWinner();
     }
     else {
@@ -204,34 +216,54 @@ holdButton.addEventListener('click',keepScore);
 
 newGameButton.addEventListener('click',newGame);
 
+yesButton.addEventListener('click',()=>{
+  resume = true;
+  modalWrapper.className = modalWrapper.className.replace('d-block','d-none');
+  getLocalState();
+  upToPlayer(playerTurn);
+  upToComputer();
+});
+
+noButton.addEventListener('click',()=>{
+  resume = false;
+  modalWrapper.className = modalWrapper.className.replace('d-block','d-none');
+  setLocalState();
+  upToPlayer(playerTurn);
+  upToComputer();
+});
+
 /*----------------------------------- 'whose turn' functions -------------------------------------*/
 
 function upToPlayer(playerPosition){
-  playerTurns[0].style.display = (playerPosition == 0 ? 'inline' : 'none');
-  playerTurns[1].style.display = (playerPosition == 0 ? 'none' : 'inline');
+  let displayA = (playerPosition == 0 ? 'd-inline' : 'd-none');
+  let displayB = (playerPosition == 0 ? 'd-none' : 'd-inline');
+  playerTurns[0].className = playerTurns[0].className.replace(displayB, displayA);
+  playerTurns[1].className = playerTurns[1].className.replace(displayA, displayB);
 }
 
 function turnOver(){
-  clickOnButtons(enable);
-  playerTurn = (playerTurn == 0 ? 1 : 0);
-  if (playerTurn == 1) {
-    upToPlayer(two);
-    if(computer == true) clickOnButtons(disable);
-    if(computer == true) play();
+  if (parseInt(globalScores[0].textContent) < 100 && parseInt(globalScores[1].textContent) < 100) {
+    clickOnButtons(enable);
+    playerTurn = (playerTurn == 0 ? 1 : 0);
+    if (playerTurn == 1) {
+      upToPlayer(two);
+      if(computer == true) clickOnButtons(disable);
+      upToComputer();
+    }
+    else{
+      upToPlayer(one);
+    }
+    setLocalState();
   }
-  else{
-    upToPlayer(one);
-  }
-  setLocalState()
 }
 
 /*---------------------------------- 'computer plays' function -----------------------------------*/
 
-function play(){
-  if(playerTurn == 1){
+function upToComputer(){
+  if(computer == true && playerTurn == 1){
     rollADice();
     let timer = setTimeout(()=>{
-      (Math.floor(Math.random() * 5) > 0) ? play() : keepScore();
+      (Math.floor(Math.random() * 5) > 0) ? upToComputer() : keepScore();
       setLocalState();
       return () => clearTimeout(timer);
     },3000)
